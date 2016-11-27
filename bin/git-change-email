@@ -1,0 +1,28 @@
+#!/bin/sh
+
+OLD_EMAIL=$1
+NAME=`git config --global user.name`
+NEW_EMAIL=`git config --global user.email`
+if [ "$#" -eq 2 ]; then
+    NEW_EMAIL=$2
+fi
+
+echo "$OLD_EMAIL --> $NEW_EMAIL"
+
+git filter-branch --env-filter '\
+    if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ];\
+    then\
+        export GIT_AUTHOR_NAME="$NAME";\
+        export GIT_AUTHOR_EMAIL="$NEW_EMAIL";\
+        git commit-tree "$@";\
+    else\
+        if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]\
+        then
+            export GIT_COMMITTER_NAME="$NAME"\
+            export GIT_COMMITTER_EMAIL="$NEW_EMAIL"\
+            git commit-tree "$0";\
+        else
+            git commit-tree "$@";\
+        fi
+    fi' --tag-name-filter cat -- --branches --tags
+
