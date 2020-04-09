@@ -1,0 +1,15 @@
+GITHUB_ROOT=$HOME/GitHub
+mkdir -p $GITHUB_ROOT
+cd $GITHUB_ROOT/dotfiles
+# [[ -d $GITHUB_ROOT/dotfiles ]] || git clone git@github.com:chances/dotfiles.git
+
+# Copy dotfiles
+cp $HOME/.zshrc .
+ZSH_CUSTOM=.oh-my-zsh/custom
+cp -r $HOME/$ZSH_CUSTOM ./.oh-my-zsh/.
+
+NVM_ALIAS=$HOME/.nvm/alias
+[[ -d $NVM_ALIAS ]] && mkdir -p .nvm && cp -r $NVM_ALIAS ./.nvm
+# if [[ -d $HOME/.nvm ]]; then
+#   mkdir ./.nvm
+# fi
