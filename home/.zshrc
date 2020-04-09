@@ -1,5 +1,9 @@
 source $HOME/.zprofile
 
+#########################################################
+# USE ~/.envrc FOR OS-SPECIFIC AND ENVORINMENT CONFIGS! #
+#########################################################
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
@@ -51,7 +55,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git dotnet yarn)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -67,17 +71,8 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='io.elementary.code'
-fi
-
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-export NVM_DIR="$HOME/.nvm"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -87,3 +82,7 @@ export NVM_DIR="$HOME/.nvm"
 # Example aliases
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+
+#########################################################
+# USE ~/.envrc FOR OS-SPECIFIC AND ENVORINMENT CONFIGS! #
+#########################################################
