@@ -9,3 +9,5 @@ if [ -d "$HOMESICK" ]; then
   # Zsh completion
   fpath=($HOMESICK/completions $fpath)
 fi
+
+export HOMESICK_DIR=$HOMESICK
