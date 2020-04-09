@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -e
+cd "$(dirname "$0")/.."
+
+which bash > /dev/null 2>&1 || (echo "Bourne again shell is required!" && exit 1)
+which curl > /dev/null 2>&1 || (echo "Curl is required!" && exit 1)
+which git > /dev/null 2>&1 || (echo "Git is required!" && exit 1)
+
+scripts/install-tools
+scripts/bootstrap

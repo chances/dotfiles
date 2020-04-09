@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+cd "$(dirname "$0")/.."
+
+# Sync dotfiles
+
+HOMESHICK=$HOME/.homesick/repos/homeshick
+source "$HOMESHICK/homeshick.sh"
+homesick() {
+  homeshick "$@"
+}
+
+cd $HOME
+
+CASTLE=dotfiles
+if [ ! -d "$HOME/.homesick/repos/$CASTLE" ]; then
+  homesick clone chances/$CASTLE
+fi
+homesick pull $CASTLE
+homesick link $CASTLE --skip
