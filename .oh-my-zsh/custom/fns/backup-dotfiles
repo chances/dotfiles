@@ -6,8 +6,7 @@ cd $GITHUB_ROOT/dotfiles
 # Copy dotfiles
 cp $HOME/.zprofile .
 cp $HOME/.zshrc .
-ZSH_CUSTOM=.oh-my-zsh/custom
-cp -r $HOME/$ZSH_CUSTOM ./.oh-my-zsh/.
+cp -r $HOME/.oh-my-zsh/custom ./.oh-my-zsh
 
 NVM_ALIAS=$HOME/.nvm/alias
 [[ -d $NVM_ALIAS ]] && mkdir -p .nvm && cp -r $NVM_ALIAS ./.nvm
