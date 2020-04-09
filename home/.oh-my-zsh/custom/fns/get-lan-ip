@@ -1,1 +1,5 @@
-hostname -I | cut -d ' ' -f 1
+if [ "$(uname -s)" = "Linux" ]; then
+  hostname -I | cut -d ' ' -f 1
+elif [ "$(uname -s)" = "Darwin" ]; then
+  ipconfig getifaddr en0
+fi
