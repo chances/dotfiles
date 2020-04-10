@@ -26,7 +26,7 @@ export UPDATE_ZSH_DAYS=7
 # DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="false"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
