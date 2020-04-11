@@ -1,1 +1,1 @@
-$ZSH_CUSTOM/scripts/switchProfile.ts
+deno --allow-env --allow-read --allow-net $ZSH_CUSTOM/scripts/switchProfile.ts $@
