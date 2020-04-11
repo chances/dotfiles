@@ -1,3 +1,16 @@
 {
-    "deno.enable": true
+    "deno.enable": true,
+    "files.associations": {
+      "switch-profile": "shellscript",
+      "change-git-email": "shellscript",
+      "git-change-email": "shellscript",
+      "git-diverged": "shellscript",
+      "npm-upgrade": "shellscript",
+      "npm-upgrade-bleeding": "shellscript",
+      "/**/home/.oh-my-zsh/custom/fns/*": "shellscript",
+      "/**/home/.oh-my-zsh/custom/fns-autoload/*": "shellscript"
+    },
+    "cSpell.words": [
+      "Deno"
+    ]
 }
