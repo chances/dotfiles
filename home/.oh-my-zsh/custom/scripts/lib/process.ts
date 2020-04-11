@@ -1,6 +1,6 @@
 import fail from './fail.ts'
 
-function processFailed(cmd: string, code: Deno.ProcessStatus['code']) {
+export function processFailed(cmd: string, code: Deno.ProcessStatus['code']) {
   fail(`\nProcess ${cmd} exited with code ${code}`);
 }
 
