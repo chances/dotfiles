@@ -1,10 +1,8 @@
 #!/usr/bin/env deno
 
-import * as path from 'https://deno.land/std/path/mod.ts'
-import { existsSync } from 'https://deno.land/std/fs/exists.ts'
-import { readJsonSync } from 'https://deno.land/std/fs/read_json.ts'
-import { assertEquals, AssertionError } from 'https://deno.land/std/testing/asserts.ts'
-import * as R from 'https://cdn.pika.dev/ramda@^0.27.0'
+import * as path from 'https://deno.land/std@0.86.0/path/mod.ts'
+import { existsSync } from 'https://deno.land/std@0.86.0/fs/exists.ts'
+import { assertEquals, AssertionError } from 'https://deno.land/std@0.86.0/testing/asserts.ts'
 import { IFlagArgument, IFlagOptions, ITypeHandler, IFlags } from 'https://deno.land/x/cliffy@v0.4.0/flags.ts';
 
 import fail from './lib/fail.ts'
@@ -30,7 +28,7 @@ function formatProfile(p: Profile) {
 }
 
 function requireEnv(key: string): string {
-  const variable = Deno.env(key)
+  const variable = Deno.env.get(key)
   if (variable === undefined) {
     fail(`Environment variable "${key}" not defined`)
   }
@@ -45,7 +43,7 @@ if (existsSync(configPath)) {
     console.log(`Loading configured profiles from "${configPath}"…`)
   }
   // TODO: Validate the json given the Profiles interface
-  profiles.push(...readJsonSync(configPath) as Profiles)
+  profiles.push(...JSON.parse(Deno.readTextFileSync(configPath)) as Profiles)
 } else if (verbose) {
   console.warn(`File not found: ${configPath}`)
 }
@@ -64,10 +62,11 @@ function queryProfilesByAlias(query?: string) {
 // Switch Profile program
 
 await requestPermissions({
-  justification: `Requesting permission to dynamically import Cliffy (https://deno.land/x/cliffy)…`
+  justification: `Requesting permission to dynamically import Cliffy (https://deno.land/x/cliffy)…`,
+  options: {host: 'deno.land'}
 }, 'net')
 
-const { Command } = await import('https://deno.land/x/cliffy@v0.4.0/mod.ts')
+const { Command, CompletionsCommand } = await import('https://deno.land/x/cliffy@v0.17.2/mod.ts')
 
 function isEmail(value: string | false) {
   const emailRegex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -93,10 +92,12 @@ const alias = (): ITypeHandler<string | undefined> => {
 }
 
 const switchProfile = new Command()
-  .version('0.1.0')
+  .version('0.2.0')
   .description('Manage a collection of Git user profiles.')
   .type('alias', alias)
   .complete('email', () => profiles.map(profile => profile.email))
+
+switchProfile.command('completions', new CompletionsCommand())
 
 switchProfile.command('ls', new Command()
   // TODO: Add a `list` alias to this sub-command
@@ -134,8 +135,8 @@ switchProfile.command('ls', new Command()
 
     type ProfilesLogger = (profiles: Profiles) => void
     const logger: ProfilesLogger = json
-      ? R.compose(console.log, JSON.stringify) as ProfilesLogger
-      : table ? profileTable : R.compose(console.log, profilePrinter)
+      ? (profiles: Profiles) => console.log(JSON.stringify(profiles))
+      : table ? profileTable : (profiles: Profiles) => console.log(profilePrinter(profiles))
 
     const profilesByQuery = profiles.filter(queryProfilesByAlias(profile))
     if (profile && profilesByQuery.length === 0) return
