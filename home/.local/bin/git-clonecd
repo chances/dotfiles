@@ -1,0 +1,6 @@
+#!/user/bin/env sh
+
+set -e
+
+# https://unix.stackexchange.com/a/97922/209107
+git clone "$1" && cd "$(basename "$1" .git)"

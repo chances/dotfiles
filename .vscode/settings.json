@@ -4,6 +4,7 @@
       "switch-profile": "shellscript",
       "change-git-email": "shellscript",
       "git-change-email": "shellscript",
+      "git-clonecd": "shellscript",
       "git-diverged": "shellscript",
       "npm-upgrade": "shellscript",
       "npm-upgrade-bleeding": "shellscript",
