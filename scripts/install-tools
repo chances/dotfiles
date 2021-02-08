@@ -40,6 +40,7 @@ install_homesick() {
 # Install tools, if uninstalled
 bash -c "[ -d $HOME/.oh-my-zsh ]" &> /dev/null || install_zsh
 brew --version &> /dev/null || install_brew
+asdf --version &> /dev/null || brew install asdf
 bash -c "[ -d $HOME/.nvm ]" &> /dev/null || install_nvm
 deno --version &> /dev/null || install_deno
 bash -c "[ -d $HOMESICK ]" &> /dev/null || install_homesick
