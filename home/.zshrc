@@ -64,6 +64,14 @@ plugins=(git dotnet yarn)
 
 source $ZSH/oh-my-zsh.sh
 
+# Antigen bundles
+source /usr/local/share/antigen/antigen.zsh
+
+antigen use oh-my-zsh
+antigen bundle lukechilds/zsh-nvm
+antigen theme robbyrussell
+antigen apply
+
 # User configuration
 
 eval "$(direnv hook zsh)"
